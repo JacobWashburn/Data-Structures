@@ -7,7 +7,7 @@ from doubly_linked_list import DoublyLinkedList as S
 
 class Stack:
     """Create a Stack for deciding in what order things should happen. This uses FILO."""
-    def __init__(self, storage = None):
+    def __init__(self):
         self.size = 0
         # Why is our DLL a good choice to store our elements?
         self.storage = S()

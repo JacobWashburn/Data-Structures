@@ -6,7 +6,7 @@ from doubly_linked_list import DoublyLinkedList as Q
 
 class Queue:
     """Create a Queue"""
-    def __init__(self, storage = None):
+    def __init__(self):
         self.size = 0
         # Why is our DLL a good choice to store our elements?
         self.storage = Q()
