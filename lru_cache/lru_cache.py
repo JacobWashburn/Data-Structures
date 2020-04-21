@@ -28,7 +28,7 @@ class LRUCache:
             """
         if key in self.hash:
             self.storage.move_to_front(self.hash[key])
-            return self.hash[key]
+            return self.hash[key].value
         else:
             return None
 
@@ -43,27 +43,18 @@ class LRUCache:
             want to overwrite the old value associated with the key with
             the newly-specified value.
             """
-        if self.storage.length > self.limit:
-            self.storage.remove_from_tail()
-            for i, v in self.hash.items():
-                if self.hash[i] == v:
-                    del self.hash[i]
+        node = None
         if key in self.hash:
-            node = self.storage.get_node(value)
-            print('create node', node.value)
-            print('get node', self.storage.get_node(value).value)
+            node = self.hash[key]
             node.value = value
-            print('change value node', node.value)
-            print('node value change', self.storage.get_node(value).value)
             self.hash[key] = node
         else:
-            self.hash[key] = self.storage.add_to_head(value)
-        return
-
-
-cache = LRUCache(3)
-cache.set('jacob', 'a')
-cache.set('jacob', 's')
-
-print(cache.get('jacob'))
-
+            node = self.storage.add_to_head(value)
+            self.hash[key] = node
+        if self.storage.length > self.limit:
+            tail_value = self.storage.remove_from_tail()
+            for i, v in self.hash.items():
+                if self.hash[i].value == tail_value:
+                    self.hash.pop(i)
+                    break
+        return node

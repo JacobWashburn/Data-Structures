@@ -70,10 +70,10 @@ class DoublyLinkedList:
     def remove_from_head(self):
         """Remove the current head and assign new head
         """
-        self.head.delete()
-        self.head = self.head.next
-        if self.length > 0:
-            self.length -= 1
+        if not self.head:
+            return
+        self.delete(self.head)
+        return self.head
 
     def add_to_tail(self, value):
         """Add a new node to the tail of the cache"""
@@ -89,25 +89,25 @@ class DoublyLinkedList:
 
     def remove_from_tail(self):
         """Remove current tail and assign new tail"""
-        self.tail.delete()
-        self.tail = self.tail.prev
-        if self.length > 0:
-            self.length -= 1
-
+        if not self.tail:
+            return
+        value = self.tail.value
+        self.delete(self.tail)
+        return value
 
     def move_to_front(self, node):
         """Move node to head of list"""
         if node is self.head:
             return
         self.add_to_head(node.value)
-        node.delete()
+        self.delete(node)
 
     def move_to_end(self, node):
         """Move node to tail of list"""
         if node is self.tail:
             return
         self.add_to_tail(node.value)
-        node.delete()
+        self.delete(node)
 
     def delete(self, node):
         """Delete given node from the list"""
