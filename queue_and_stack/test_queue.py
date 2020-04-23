@@ -1,9 +1,11 @@
+"""Unittests for dll_queue.py"""
 import unittest
 from dll_queue import Queue
 
 
 class QueueTests(unittest.TestCase):
     def setUp(self):
+        """Begin each test with a new Queue instance"""
         self.q = Queue()
 
     def test_len_returns_0_for_empty_queue(self):
@@ -40,9 +42,8 @@ class QueueTests(unittest.TestCase):
         self.assertEqual(self.q.len(), 0)
         self.assertIsNone(self.q.dequeue())
         self.assertEqual(self.q.len(), 0)
+        self.assertEqual(self.q.len(), self.q.q_length())
+
 
 if __name__ == '__main__':
     unittest.main()
-
-
-        
